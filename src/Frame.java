@@ -76,7 +76,7 @@ public class Frame extends JFrame {
 		contentPane.add(jtfSource, "cell 0 0,growx");
 		jtfSource.setColumns(10);
 		
-		lblCible = new JLabel("Cible:");
+		lblCible = new JLabel("Target:");
 		contentPane.add(lblCible, "flowx,cell 2 0");
 		
 		jtfCible = new JTextField();
