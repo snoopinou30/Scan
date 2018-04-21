@@ -87,7 +87,7 @@ public class Frame extends JFrame {
 		buttonGO.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ActionPrinc action = new ActionPrinc("Rename");
+				ActionPrinc action = new ActionPrinc("Rename"); // Start process cf. down
 				action.start();
 				
 			}});
@@ -103,7 +103,7 @@ public class Frame extends JFrame {
 	
 	
 	
-	public long folderSize(File directory) {
+	public long folderSize(File directory) { // Get total source directory size
 		long size = 0;
 		
 		for(File file : directory.listFiles()) {
@@ -115,11 +115,6 @@ public class Frame extends JFrame {
 		}
 
 		return size;
-	}
-	
-	
-	public void refreshGUI() {
-		this.revalidate();
 	}
 	
 	
@@ -139,22 +134,22 @@ public class Frame extends JFrame {
 			double processing = 0;
 			double toProcess = folderSize(source.toFile());
 			progressBar.setMinimum(0);
-			progressBar.setMaximum(100000);
+			progressBar.setMaximum(100000); // Using a large number so the progressBar will move more often
 
-			try(DirectoryStream<Path> root = Files.newDirectoryStream(source)){// CONTENU PRINCIPAL // DOSSIER SCANS
+			try(DirectoryStream<Path> root = Files.newDirectoryStream(source)){// Each sub directory
 				
-				for(Path doss : root) { // DOSS = DOSSIERS
-					if(Files.isDirectory(doss)) {
-						try(DirectoryStream<Path> contDoss = Files.newDirectoryStream(doss, "*.cbz")){ // LES CBZ DIRECTS
+				for(Path doss : root) { // doss = sub-Directories
+					if(Files.isDirectory(doss)) { // If right Architecture, should be a directory
+						try(DirectoryStream<Path> contDoss = Files.newDirectoryStream(doss, "*.cbz")){ // contDoss = Every CBZ / Content of Sub-Directory
 							
-							Path[] paths = new Path[(int) Files.list(doss).count()];
+							Path[] paths = new Path[(int) Files.list(doss).count()]; //New array created to sort it. Uses it instead of DirectoryStream
 							int k = 0;
-							for(Path cbz : contDoss) {
+							for(Path cbz : contDoss) { // Fill array
 								paths[k] = cbz;
 								k++;
 							}
 							
-							Arrays.sort(paths, new Comparator<Path>() {
+							Arrays.sort(paths, new Comparator<Path>() { // Sort array according to modifiedTime
 								public int compare(Path p1, Path p2) {
 									return Long.compare(p1.toFile().lastModified(), p2.toFile().lastModified());
 								}
@@ -165,18 +160,18 @@ public class Frame extends JFrame {
 							String zero = "";
 							while(j > 10) {
 								j = j/10;
-								zero = zero+"0";
+								zero = zero+"0"; // Mechanism to have the right number of ZERO
 							}
 							j = 1;
 							
-							for(Path cbz : paths) {
+							for(Path cbz : paths) { // Each cbz
 
 								if(i == j*10) {
-									zero = zero.substring(0, zero.length()-1);
+									zero = zero.substring(0, zero.length()-1); // Remove 1 zero when it needs to
 									j = i;
 								}
 
-								Path cibleDef = Paths.get(cible+File.separator+doss.getFileName()+File.separator+doss.getFileName()+" "+zero+i+".cbz");
+								Path cibleDef = Paths.get(cible+File.separator+doss.getFileName()+File.separator+doss.getFileName()+" "+zero+i+".cbz"); // Path for target+Right name
 								
 								boolean exist = false;
 								try{
