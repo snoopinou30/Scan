@@ -2,7 +2,7 @@
 
 **WHAT'S THIS**
 
-   This quick programs allows you to copy files from a directory, rename them and paste them somewhere else.
+   This quick programs allows you to copy scans from a directory, rename them and paste them somewhere else. (Works with .cbz). Downloads in the Release tab.
 
 
 **WHY CREATING THIS**
@@ -24,4 +24,4 @@
 **IMPORTANT**
 
    The way the program rename the files is using the last modified order. It means that the first modified files will be 01 and the last modified the last number.
-   If you're using Hakuneko (as i do), don't forget to change the order the files are displayed (and so downloaded) or it will rename in the bad order.
+   If you're using HakuNeko (as i do), don't forget to change the order the files are displayed (and so downloaded) or it will rename in the bad order.
